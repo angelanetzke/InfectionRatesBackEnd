@@ -30,6 +30,7 @@ public class Main {
 			}
 
 			private void sendResponse(HttpExchange exchange, byte[] response) throws IOException {
+				exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 				exchange.sendResponseHeaders(200, response.length);
 				OutputStream os = exchange.getResponseBody();
 				os.write(response);
