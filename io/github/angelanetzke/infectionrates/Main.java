@@ -3,18 +3,13 @@ package io.github.angelanetzke.infectionrates;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpRequest.Builder;
 import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandler;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Date;
 import java.util.Scanner;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -31,8 +26,7 @@ public class Main {
 
 			@Override
 			public void handle(HttpExchange exchange) throws IOException {
-				Date now = new Date();
-				long nowMS = now.getTime();
+				long nowMS = System.currentTimeMillis();
 				File cacheFile = new File("cache.json");
 				long cacheLastModifiedMS = cacheFile.lastModified();
 				if (cacheFile.exists() && nowMS - cacheLastModifiedMS < sixHoursMS) {
